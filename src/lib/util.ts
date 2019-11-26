@@ -1,4 +1,4 @@
-const delay = async millis => new Promise(resolve => {
+const delay = async (millis: number) => new Promise(resolve => {
   return setTimeout(() => {
     return resolve()
   }, millis)

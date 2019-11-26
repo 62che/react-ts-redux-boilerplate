@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { bindActionCreators, Dispatch } from 'redux'
 // import { increment, decrement, delayedIncrement } from '../state/counter'
 import * as counterActions from '../state/counter'
+import { CounterState } from '../state/counter'
+import { RootState } from '../state'
 
 class ClassCounter extends Component {
   render() {
@@ -18,7 +20,7 @@ class ClassCounter extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: RootState) => ({
   // number: state.counter.number
   state: state.counter
 })
@@ -29,7 +31,7 @@ const mapStateToProps = state => ({
 // })
 // const mapDispatchToProps = dispatch => bindActionCreators({ increment, decrement }, dispatch)
 // const mapDispatchToProps = { increment, decrement, delayedIncrement }
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   actions: bindActionCreators(counterActions, dispatch)
 })
 

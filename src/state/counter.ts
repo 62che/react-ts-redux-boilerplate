@@ -1,17 +1,21 @@
+import { action } from 'typesafe-actions'
 import { createAction, handleActions } from 'redux-actions'
 import produce from 'immer'
 import { delay } from '../lib/util'
+import { Dispatch } from 'redux'
 
 const INCREMENT = 'counter/INCREMENT'
 const DECREMENT = 'counter/DECREMENT'
 
 // actions
-export const increment = () => ({ type: INCREMENT })
+// export const increment = () => ({ type: INCREMENT })
 // export const increment = createAction(INCREMENT, payload => payload)
 // export const decrement = () => ({ type: DECREMENT })
-export const decrement = createAction(DECREMENT)
+// export const decrement = createAction(DECREMENT)
+export const increment = () => action(INCREMENT)
+export const decrement = () => action(DECREMENT)
 
-export const delayedIncrement = () => async dispatch => {
+export const delayedIncrement = () => async (dispatch: Dispatch) => {
   dispatch(increment())
   await delay(1000)
   dispatch(increment())
@@ -19,7 +23,11 @@ export const delayedIncrement = () => async dispatch => {
   dispatch(increment())
 }
 
-const initialState = {
+export interface CounterState {
+  number: number
+}
+
+const initialState: CounterState = {
   number: 0
 }
 
@@ -41,11 +49,11 @@ const initialState = {
 //   }
 // }
 export default handleActions({
-  [INCREMENT]: (state, action) => ({
+  [INCREMENT]: (state, action): CounterState => ({
     ...state,
     number: state.number + 1
   }),
-  [DECREMENT]: (state, action) => produce(state, draft => {
+  [DECREMENT]: (state, action): CounterState => produce(state, (draft: CounterState) => {
     draft.number--
   })
 }, initialState)

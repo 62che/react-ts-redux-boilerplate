@@ -13,7 +13,7 @@ import FunctionalCounter from './component/FunctionalCounter'
 
 const state = createStore(rootReducer, composeWithDevTools(applyMiddleware(loggerMiddleware, ReduxThunk)))
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <Provider store={state}>
       <div>
