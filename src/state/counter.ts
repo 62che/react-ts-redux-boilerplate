@@ -1,4 +1,4 @@
-import { action } from 'typesafe-actions'
+import { action, ActionType } from 'typesafe-actions'
 import { createAction, handleActions } from 'redux-actions'
 import produce from 'immer'
 import { delay } from '../lib/util'
@@ -22,6 +22,10 @@ export const delayedIncrement = () => async (dispatch: Dispatch) => {
   await delay(1000)
   dispatch(increment())
 }
+
+export const actions = { increment, decrement, delayedIncrement }
+export type CounterAction = ActionType<typeof actions>
+export type Actions = typeof actions
 
 export interface CounterState {
   number: number

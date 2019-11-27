@@ -2,7 +2,8 @@ import { Middleware, MiddlewareAPI, Dispatch, Action, AnyAction } from 'redux'
 import { RootState } from '../state'
 
 // const loggerMiddleware: Middleware = (store) => (next) => (action) => {
-const loggerMiddleware: Middleware = (store: MiddlewareAPI<Dispatch<AnyAction>, RootState>) => (next: Dispatch<AnyAction>) => (action: Action) => {
+const loggerMiddleware: Middleware = (store: MiddlewareAPI) => (next: Dispatch) => (action: Action) => {
+// const loggerMiddleware: Middleware = (store: MiddlewareAPI<Dispatch<AnyAction>, RootState>) => (next: Dispatch<AnyAction>) => (action: Action) => {
     console.log('before', store.getState())
   console.log(action)
 

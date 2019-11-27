@@ -1,12 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
-// import { increment, decrement, delayedIncrement } from '../state/counter'
-import * as counterActions from '../state/counter'
-import { CounterState } from '../state/counter'
+import { increment, decrement, delayedIncrement } from '../state/counter'
+// import * as counterActions from '../state/counter'
+import { CounterState, CounterAction, actions, Actions } from '../state/counter'
 import { RootState } from '../state'
 
-class ClassCounter extends Component {
+interface Props {
+  state: CounterState
+  actions: Actions
+}
+
+class ClassCounter extends Component<Props> {
   render() {
     const { state, actions } = this.props
     return (
@@ -25,14 +30,16 @@ const mapStateToProps = (state: RootState) => ({
   state: state.counter
 })
 
-// const mapDispatchToProps = dispatch => ({
-//   increment: () => dispatch(increment()),
-//   decrement: () => dispatch(decrement())
+// const mapDispatchToProps = (dispatch: Dispatch) => ({
+//   actions: {
+//     increment: () => dispatch(increment()),
+//     decrement: () => dispatch(decrement())
+//   }
 // })
-// const mapDispatchToProps = dispatch => bindActionCreators({ increment, decrement }, dispatch)
+// const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({ increment, decrement }, dispatch)
 // const mapDispatchToProps = { increment, decrement, delayedIncrement }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  actions: bindActionCreators(counterActions, dispatch)
+  actions: bindActionCreators(actions, dispatch)
 })
 
 export default connect(
