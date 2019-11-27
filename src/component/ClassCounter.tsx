@@ -9,11 +9,13 @@ import { RootState } from '../state'
 interface Props {
   state: CounterState
   actions: Actions
+  dispatch: Dispatch
 }
 
 class ClassCounter extends Component<Props> {
   render() {
-    const { state, actions } = this.props
+    const { state, actions, dispatch } = this.props
+    // dispatch(increment())
     return (
       <div>
         <h1>{state.number}</h1>
@@ -39,7 +41,8 @@ const mapStateToProps = (state: RootState) => ({
 // const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({ increment, decrement }, dispatch)
 // const mapDispatchToProps = { increment, decrement, delayedIncrement }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  actions: bindActionCreators(actions, dispatch)
+  actions: bindActionCreators(actions, dispatch),
+  dispatch
 })
 
 export default connect(
