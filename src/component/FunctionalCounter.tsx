@@ -1,18 +1,24 @@
 import React from 'react'
-import { useSelector, shallowEqual, useDispatch } from 'react-redux'
-import { increment, decrement, delayedIncrement } from '../state/counter'
-import { RootState } from '../state'
+import { useSelector, shallowEqual/*, useDispatch*/ } from 'react-redux'
 
-const FunctionalCounter = () => {
-  const state = useSelector((state: RootState) => state.counter, shallowEqual)
-  const dispatch = useDispatch()
+import { useDispatchers } from '../lib/hook'
+
+import { RootState } from '../store'
+import { counterActionCreators, CounterActionCreators } from '../store/module/counter'
+
+const FunctionalCounter: React.FC = () => {
+  const counterState = useSelector((state: RootState) => state.counter, shallowEqual)
+  // const dispatch = useDispatch()
+  // const { newIncrement, newDecrement, newDelayedIncrementThunk } = counterActionCreators
+  const counterDispatchers: CounterActionCreators = useDispatchers(counterActionCreators)
 
   return (
     <div>
-      <h1>{state.number}</h1>
-      <button onClick={() => dispatch(increment())}>+</button>
-      <button onClick={() => dispatch(decrement())}>-</button>
-      <button onClick={() => dispatch(delayedIncrement())}>*</button>
+      <h1>{counterState.number}</h1>
+      <button onClick={counterDispatchers.newIncrement}>+</button>
+      <button onClick={counterDispatchers.newDecrement}>-</button>
+      <button onClick={() => counterDispatchers.newIncrementBy(10)}>+10</button>
+      <button onClick={counterDispatchers.newDelayedIncrementThunk}>*</button>
     </div>
   )
 }

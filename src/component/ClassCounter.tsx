@@ -1,48 +1,37 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
-import { increment, decrement, delayedIncrement } from '../state/counter'
-// import * as counterActions from '../state/counter'
-import { CounterState, CounterAction, actions, Actions } from '../state/counter'
-import { RootState } from '../state'
+
+import { CounterState, CounterActionCreators, counterActionCreators } from '../store/module/counter'
+import { RootState } from '../store'
 
 interface Props {
-  state: CounterState
-  actions: Actions
-  dispatch: Dispatch
+  counterState: CounterState
+  counterDispatchers: CounterActionCreators
 }
 
-class ClassCounter extends Component<Props> {
+class ClassCounter extends React.Component<Props> {
   render() {
-    const { state, actions, dispatch } = this.props
-    // dispatch(increment())
+    const { counterState, counterDispatchers } = this.props
+
     return (
       <div>
-        <h1>{state.number}</h1>
-        <button onClick={actions.increment}>+</button>
-        <button onClick={actions.decrement}>-</button>
-        <button onClick={actions.delayedIncrement}>*</button>
+        <h1>{counterState.number}</h1>
+        <button onClick={counterDispatchers.newIncrement}>+</button>
+        <button onClick={counterDispatchers.newDecrement}>-</button>
+        <button onClick={() => counterDispatchers.newIncrementBy(10)}>+10</button>
+        <button onClick={counterDispatchers.newDelayedIncrementThunk}>*</button>
       </div>
     )
   }
 }
 
 const mapStateToProps = (state: RootState) => ({
-  // number: state.counter.number
-  state: state.counter
+  counterState: state.counter
 })
 
-// const mapDispatchToProps = (dispatch: Dispatch) => ({
-//   actions: {
-//     increment: () => dispatch(increment()),
-//     decrement: () => dispatch(decrement())
-//   }
-// })
-// const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({ increment, decrement }, dispatch)
-// const mapDispatchToProps = { increment, decrement, delayedIncrement }
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  actions: bindActionCreators(actions, dispatch),
-  dispatch
+  counterDispatchers: bindActionCreators(counterActionCreators, dispatch)
 })
 
 export default connect(
