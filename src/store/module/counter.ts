@@ -35,8 +35,8 @@ const newDelayedIncrementThunk = () => async (dispatch: Dispatch): Promise<void>
 }
 
 export const counterActionCreators = { newIncrement, newDecrement, newIncrementBy, newDelayedIncrementThunk }
-export type CounterAction = ActionType<typeof counterActionCreators>
 export type CounterActionCreators = typeof counterActionCreators
+export type CounterAction = ActionType<CounterActionCreators>
 
 export interface CounterState {
   number: number

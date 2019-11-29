@@ -3,6 +3,7 @@ import { Route, Link } from 'react-router-dom'
 
 import ClassCounter from './component/ClassCounter'
 import FunctionalCounter from './component/FunctionalCounter'
+import Todo from './component/Todo'
 
 const App: React.FC = () => (
   <>
@@ -17,6 +18,7 @@ const App: React.FC = () => (
     </ul>
     <Route path="/class" component={ClassCounter} />
     <Route path="/functional" component={FunctionalCounter} />
+    <Todo />
   </>
 )
 
