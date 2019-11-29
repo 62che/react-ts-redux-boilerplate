@@ -7,7 +7,10 @@ import { ConnectedRouter } from 'connected-react-router'
 
 import store, { history } from './store'
 
-;(window as any).___debug = { store }
+;(window as any).___debug = {
+  store,
+  history
+}
 
 ReactDOM.render((
 <Provider store={store}>

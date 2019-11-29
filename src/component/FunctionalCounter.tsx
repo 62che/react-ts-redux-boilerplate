@@ -14,7 +14,8 @@ const FunctionalCounter: React.FC = () => {
 
   return (
     <div>
-      <h1>{counterState.number}</h1>
+      <h1>Functional Component</h1>
+      <h2>{counterState.number}</h2>
       <button onClick={counterDispatchers.newIncrement}>+</button>
       <button onClick={counterDispatchers.newDecrement}>-</button>
       <button onClick={() => counterDispatchers.newIncrementBy(10)}>+10</button>
