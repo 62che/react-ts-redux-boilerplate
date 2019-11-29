@@ -51,7 +51,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   counterDispatchers: bindActionCreators(counterActionCreators, dispatch)
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ClassCounter)
+export default connect(mapStateToProps, mapDispatchToProps)(ClassCounter)

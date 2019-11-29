@@ -23,7 +23,6 @@ instance.interceptors.response.use(
     return response
   },
   async (error: Error): Promise<Error> => {
-    (window as any).___error = error
     if (isAxiosError(error)) {
       const axiosError: AxiosError = error as AxiosError
       console.log('axios response interceptor axiosError:', axiosError)

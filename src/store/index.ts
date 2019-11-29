@@ -9,24 +9,16 @@ import logger from './middleware/logger'
 
 import { counterReducer, CounterState } from './module/counter'
 
-const createRootReducer = (history: History): Reducer<RootState> => combineReducers({
-  router: connectRouter(history),
-  counter: counterReducer
-})
+const createRootReducer = (history: History): Reducer<RootState> =>
+  combineReducers({
+    router: connectRouter(history),
+    counter: counterReducer
+  })
 
 export const history: History = createBrowserHistory()
 
 const createRootStore = (): Store<RootState> => {
-  const store = createStore(
-    createRootReducer(history),
-    composeWithDevTools(
-      applyMiddleware(
-        routerMiddleware(history),
-        logger,
-        ReduxThunk
-      )
-    )
-  )
+  const store = createStore(createRootReducer(history), composeWithDevTools(applyMiddleware(routerMiddleware(history), logger, ReduxThunk)))
 
   return store
 }
