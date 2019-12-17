@@ -2,53 +2,39 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 
-import { CounterState, CounterActionCreators, counterActionCreators } from '../store/module/counter'
-import { RootState } from '../store'
-
-// import http, { isAxiosError } from '../lib/http'
-// import { AxiosError } from 'axios'
+import { RootState } from 'store'
+import * as counter from 'store/example/counter'
 
 interface Props {
-  counterState: CounterState
-  counterDispatchers: CounterActionCreators
+  counterState: counter.State
+  count: number
+  counterThunk: counter.Thunk
 }
 
 class ClassCounter extends React.Component<Props> {
-  // async componentDidMount() {
-  //   console.log('componentDidMount')
-  //   try {
-  //     const res = await http.get('http://google.com')
-  //     console.log(res)
-  //   } catch (error) {
-  //     if(isAxiosError(error)) {
-  //       const axiosError: AxiosError = error
-  //       console.log(axiosError)
-  //     }
-  //   }
-  // }
-
   render() {
-    const { counterState, counterDispatchers } = this.props
+    const { counterState, count, counterThunk } = this.props
 
     return (
       <div>
         <h1>Class Component</h1>
-        <h2>{counterState.number}</h2>
-        <button onClick={counterDispatchers.newIncrement}>+</button>
-        <button onClick={counterDispatchers.newDecrement}>-</button>
-        <button onClick={() => counterDispatchers.newIncrementBy(10)}>+10</button>
-        <button onClick={counterDispatchers.newDelayedIncrementThunk}>*</button>
+        <h2>{counterState.count}</h2>
+        <h2>{count}</h2>
+        <button onClick={() => counterThunk.increment(1)}>+</button>
+        <button onClick={() => counterThunk.decrement(1)}>+</button>
+        <button onClick={() => counterThunk.delayedTwice(1)}>+1+1</button>
       </div>
     )
   }
 }
 
 const mapStateToProps = (state: RootState) => ({
-  counterState: state.counter
+  counterState: counter.selector.state(state),
+  count: counter.selector.count(state)
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  counterDispatchers: bindActionCreators(counterActionCreators, dispatch)
+  counterThunk: bindActionCreators(counter.thunk, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ClassCounter)

@@ -1,37 +1,20 @@
-import { createStore, combineReducers, applyMiddleware, Store, Reducer } from 'redux'
+import { createStore, applyMiddleware, AnyAction } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import ReduxThunk from 'redux-thunk'
-
-import { connectRouter, routerMiddleware, RouterState } from 'connected-react-router'
-import { History, createHashHistory } from 'history'
+import { ThunkAction as TA, ThunkDispatch as TD } from 'redux-thunk'
+import { routerMiddleware } from 'connected-react-router'
 
 import logger from './middleware/logger'
 
-import { counterReducer, CounterState } from './module/counter'
-import { todoReducer, TodoState } from './module/todo'
+import { history } from './router'
+import rootReducer from './reducer'
+import * as rootState from './state'
 
-const createRootReducer = (history: History): Reducer<RootState> =>
-  combineReducers({
-    router: connectRouter(history),
-    counter: counterReducer,
-    todo: todoReducer
-  })
+export default createStore(rootReducer, composeWithDevTools(applyMiddleware(routerMiddleware(history), logger, ReduxThunk)))
 
-export const history: History = createHashHistory()
-// export const history: History = createBrowserHistory()
+export type RootState = rootState.default
+export type GetStateFn = () => RootState
 
-const createRootStore = (): Store<RootState> => {
-  const store = createStore(createRootReducer(history), composeWithDevTools(applyMiddleware(routerMiddleware(history), logger, ReduxThunk)))
-
-  return store
-}
-
-const rootStore = createRootStore()
-
-export default rootStore
-
-export interface RootState {
-  router: RouterState
-  counter: CounterState
-  todo: TodoState
-}
+type ExtraArg = undefined
+export type ThunkAction = TA<Promise<void>, RootState, ExtraArg, AnyAction>
+export type ThunkDispatch = TD<RootState, ExtraArg, AnyAction>
