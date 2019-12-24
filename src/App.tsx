@@ -1,23 +1,16 @@
 import React from 'react'
-import { Route, Link } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
-import ClassCounter from './component/ClassCounter'
-import FunctionalCounter from './component/FunctionalCounter'
+import Main from 'component/page/Main'
+import Other from 'component/page/Other'
 
-const App: React.FC = () => (
-  <>
-    <div>Hello, world!</div>
-    <ul>
-      <li>
-        <Link to="/class">Class</Link>
-      </li>
-      <li>
-        <Link to="/functional">Functional</Link>
-      </li>
-    </ul>
-    <Route path="/class" component={ClassCounter} />
-    <Route path="/functional" component={FunctionalCounter} />
-  </>
-)
+const App: React.FC = () => {
+  return (
+    <>
+      <Route exact path="/" component={Main} />
+      <Route path="/other" component={Other} />
+    </>
+  )
+}
 
 export default App
