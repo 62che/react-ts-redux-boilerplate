@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
 
 import store from 'store'
-import { history } from 'store/router'
+import history from 'lib/history'
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'

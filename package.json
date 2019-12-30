@@ -38,7 +38,9 @@
     "test:once": "react-scripts test --watchAll=false",
     "test:coverage": "react-scripts test --coverage --watchAll=false",
     "test:watch": "npm test -- --watch",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -62,5 +64,11 @@
       "src/api",
       "src/lib"
     ]
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^5.2.8",
+    "@storybook/addon-links": "^5.2.8",
+    "@storybook/addons": "^5.2.8",
+    "@storybook/react": "^5.2.8"
   }
 }

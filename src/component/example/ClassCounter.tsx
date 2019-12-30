@@ -1,40 +1,47 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators, Dispatch } from 'redux'
 
-import RootState from 'store/state'
-import * as counter from 'store/example/counter'
+import { delay } from 'lib/util'
 
 interface Props {
-  counterState: counter.State
+  init: number
+}
+
+interface State {
   count: number
-  counterThunk: counter.Thunk
 }
 
-class ClassCounter extends React.Component<Props> {
-  render() {
-    const { counterState, count, counterThunk } = this.props
+class ClassCounter extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props)
 
-    return (
-      <div>
-        <h1>Class Component</h1>
-        <h2>{counterState.count}</h2>
-        <h2>{count}</h2>
-        <button onClick={() => counterThunk.increment(1)}>+</button>
-        <button onClick={() => counterThunk.decrement(1)}>-</button>
-        <button onClick={() => counterThunk.delayedTwiceAdd(1)}>+1+1</button>
-      </div>
-    )
+    this.state = { count: props.init }
   }
+
+  increment = (amount: number) => {
+    this.setState((state: State, props: Props) => {
+      return {
+        count: state.count + amount
+      }
+    })
+  }
+
+  decrement = (amount: number) => this.setState(state => ({ count: state.count - amount }))
+
+  delayedTwiceAdd = async (amount: number) => {
+    this.increment(amount)
+    await delay(1000)
+    this.increment(amount)
+  }
+
+  render = () => (
+    <div>
+      <h1>Class Component</h1>
+      <h2>{this.state.count}</h2>
+      <button onClick={() => this.increment(1)}>+</button>
+      <button onClick={() => this.decrement(1)}>-</button>
+      <button onClick={() => this.delayedTwiceAdd(1)}>+1+1</button>
+    </div>
+  )
 }
 
-const mapStateToProps = (state: RootState) => ({
-  counterState: counter.selector.state(state),
-  count: counter.selector.count(state)
-})
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  counterThunk: bindActionCreators(counter.thunk, dispatch)
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(ClassCounter)
+export default ClassCounter
