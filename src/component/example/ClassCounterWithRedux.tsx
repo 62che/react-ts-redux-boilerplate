@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
 
-import { RootState } from 'store/state'
+import RootState from 'store/state'
 import * as counter from 'store/example/counter'
 
 interface Props {
