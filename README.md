@@ -9,6 +9,7 @@
 - Class Component Example
 - Functional Component Example
 - Mocking and Testing for Redux
+- Storybook
 
 ---
 
@@ -33,6 +34,12 @@
 > npm run test:once # 테스트 케이스 수행
 > npm run test:coverage # 커버리지 리포트 생성
 > npm run test:watch # TDD
+```
+
+### Storybook
+
+```cmd
+> npm run storybook
 ```
 
 ### Build
