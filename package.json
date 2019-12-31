@@ -62,7 +62,8 @@
       "src/index.tsx",
       "src/Injector.tsx",
       "src/api",
-      "src/lib"
+      "src/lib",
+      ".stories.tsx$"
     ]
   },
   "devDependencies": {
