@@ -1,8 +1,7 @@
 import { connectRouter } from 'connected-react-router'
 
-import RouterState from './state'
-import { history } from '.'
+import history from 'lib/history'
 
-const reducer = connectRouter<RouterState>(history)
+const reducer = connectRouter(history)
 
 export default reducer

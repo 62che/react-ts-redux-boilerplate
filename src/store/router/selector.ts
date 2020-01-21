@@ -1,4 +1,4 @@
-import { Location } from '.'
+import { Location } from 'lib/history'
 
 import RootState from 'store/state'
 

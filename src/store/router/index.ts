@@ -1,17 +1,8 @@
-import { History, createHashHistory, Location as Location_ } from 'history'
-import { RouterState } from 'connected-react-router'
-
+import * as state from './state'
 import * as selector from './selector'
 import * as thunk from './thunk'
 
-export type Location = Location_
-
-const history: History = createHashHistory()
-// const history: History = createBrowserHistory()
-
-export { history }
-
-export type State = RouterState
+export type State = state.default
 
 export type Selector = selector.default
 export { selector }

@@ -2,9 +2,8 @@ import { History as History_, createHashHistory, Location as Location_ } from 'h
 
 export type History = History_
 export type Location = Location_
-export const createHistory = createHashHistory
 
-const history: History = createHistory()
+const history: History = createHashHistory()
 // const history: History = createBrowserHistory()
 
 export default history

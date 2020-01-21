@@ -6,11 +6,14 @@ import { routerMiddleware } from 'connected-react-router'
 
 import logger from './middleware/logger'
 
-import { history } from './router'
+import history from 'lib/history'
 import rootReducer from './reducer'
 import * as state from './state'
 
-export default createStore(rootReducer, composeWithDevTools(applyMiddleware(routerMiddleware(history), logger, ReduxThunk)))
+export default createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(routerMiddleware(history), logger, ReduxThunk))
+)
 
 export type RootState = state.default
 
